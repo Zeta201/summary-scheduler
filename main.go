@@ -19,7 +19,7 @@ type TransactionSummary struct {
 func fetchAndLogSummary() {
 	serviceURL := os.Getenv("CHOREO_SUMMARY_CONN_SERVICEURL")
 	resourcePath := "transactions/summary"
-	choreoApiKey := os.Getenv("CHOREO_SUMMARY_CONN_APIKEY")
+	choreoApiKey := os.Getenv("CHOREO_SUMMARY_CONN_CHOREOAPIKEY")
 
 	// Create a new HTTP request
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s/%s", serviceURL, resourcePath), nil)
