@@ -1,0 +1,6 @@
+schemaVersion: 1.2
+
+dependencies:
+    connectionReferences:
+    - name: summary-conn
+      resourceRef: service:/default/bank-api/v1/5c69c/PUBLIC
