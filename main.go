@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
 )
 
 type TransactionSummary struct {
@@ -19,21 +18,22 @@ type TransactionSummary struct {
 
 func fetchAndLogSummary() {
 	serviceURL := os.Getenv("CHOREO_SUMMARY_CONN_SERVICEURL")
+	resourcePath := "transactions/summary"
 	choreoApiKey := os.Getenv("CHOREO_SUMMARY_CONN_APIKEY")
 
 	// Create a new HTTP request
-	req, err := http.NewRequest("GET", serviceURL, nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/%s", serviceURL, resourcePath), nil)
 	if err != nil {
 		log.Fatalf("Failed to create request: %v", err)
 	}
 
 	// Add API key to the header (adjust the header name if required by your API)
-	req.Header.Set("Choreo-API-Key", fmt.Sprintf("Bearer %s", choreoApiKey))
+	req.Header.Add("Choreo-API-Key", choreoApiKey)
 	// OR use a custom header if needed:
 	// req.Header.Set("X-API-Key", choreoApiKey)
 
 	// Send the request using http.Client
-	client := &http.Client{Timeout: 10 * time.Second}
+	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatalf("Failed to fetch transaction summary: %v", err)
